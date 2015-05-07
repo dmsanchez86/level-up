@@ -1,0 +1,227 @@
+// Variables
+@fondo_body: rgb(239, 86, 104);
+@fondo_header: rgb(47, 55, 73);
+@fondo_navigator: rgb(204, 204, 204);
+@fondo_nombre: rgb(0, 197, 185);
+
+// Métodos
+
+// Prefijos todos los navegadores
+.property_(@property, @value) {
+    -webkit-@{property}: @value;
+     -khtml-@{property}: @value;
+       -moz-@{property}: @value;
+        -ms-@{property}: @value;
+         -o-@{property}: @value;
+            @{property}: @value;
+}
+
+// Anchura y Altura Siempre al 100%
+.alto_ancho(@altura: 100%,@anchura: 100%){ height:@altura;width: @anchura; margin: 0 auto; display:block; }
+
+// Transiciones
+.transicion(@propiedad: all,@duracion: .5s, @tipo_transition: ease-in-out){
+    .property_(transition, @propiedad @duracion @tipo_transition);
+}
+
+// Métodos Box-Sizing
+.box-sizing(@param:border-box;){
+    .property_(box-sizing, @param);
+}
+//CEntrar objetos absolutos
+.absoluto(){
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+// Textos
+.textos(){
+    font-family: 'Lora', serif; color: black; font-size: 1.3rem; text-align: justify;
+}
+
+// Fondos --- Background-image
+.imagen_fondo(@url:'',@tamano: cover,@repetir_fondo: no-repeat,@posicion: center){
+    background-image: url(@url);
+    background-size: @tamano;
+    background-repeat: @repetir_fondo;
+    background-position: @posicion;
+}
+
+/* Reseteo */
+*{ border: 0; margin: 0; padding: 0;}
+
+body,html{ .alto_ancho(); }
+
+body{ .imagen_fondo('/wp-content/uploads/material/fondo_body.png',contain,repeat,0 0); background-attachment: fixed;  }
+/* Cabecera */
+
+// Logo
+
+.logo{ background-color: @fondo_header; height: 167px; .imagen_fondo('/wp-content/uploads/material/fondo.png',cover,no-repeat,center);
+    .logo__contenedor{ .alto_ancho(160px,100%); padding: .5em 0 0;}
+    .logo__imagen{ .alto_ancho(auto,auto); .transicion(); max-width: 100%; max-height:100%; .box-sizing(); padding: .45em; 
+        &:hover{ opacity: .8; }
+    }
+}
+
+// Menu
+.navegador{
+    .navegador__contenedor{ background-color: @fondo_navigator; .alto_ancho();
+        ul{ margin: 0; padding: 0; text-align: center; }
+        li{ display: inline-block; 
+            a{ color: white; text-transform: uppercase; font-family: 'Fjalla One','Lato', sans-serif; font-size: 2rem; padding: .4em .6em; display:block; }
+        }
+    }
+    .mano{position:absolute; width: 80px;height: 82px; right: 15%; top: 0; z-index:10; background-image: url(/wp-content/uploads/material/mano.png); background-size: contain; background-position: center; background-repeat: no-repeat; .transicion();
+        &:hover{transform: scale(.9);}
+    }
+}
+.navegador .container{ position: relative; }
+
+// contenedor
+#content .container{background-color: white; background-clip: content-box;}
+
+.contenedor{
+    .title{ background-color: @fondo_header; background-image: url(/wp-content/uploads/material/fondo_titulo.png);background-position: 100% 0px;  margin-top: 3em; position: relative; background-repeat: no-repeat;    
+    &:after,&:before{content:""; top: 0;  width: 10px;height: 118%; position:absolute;background-size: cover;}
+    &:after{left: -10px; background-image: url(/wp-content/uploads/material/titulo_after.png);}
+    &:before{right: -10px; background-image: url(/wp-content/uploads/material/titulo_before.png);}
+        h1{ text-align: center; color: white; font-size: 3rem; margin: 10px 0; padding: 1rem 0; font-family: 'Fjalla One', 'Lato', sans-serif; border-image: url(/wp-content/uploads/material/puntas.png); 
+            span{display: inline-block; background-image: url(/wp-content/uploads/material/puntas.png); background-repeat: repeat-x; background-position: -1px bottom; padding-bottom: .3em; background-size: 38.8%; } }
+    }
+    .title.columnista{ position: relative; text-align: left; background-size: contain; 
+    &:before{background-size: contain;background-repeat: no-repeat;}
+        > h1{position:relative;text-align: left; padding-left: 10%;.box-sizing();}
+        > h1 div{display: inline-block; background-color: @fondo_navigator; top: 20%;}
+        span{background-image: none; margin-left: 120px;text-transform: uppercase; font-size: 1.7rem;}
+        .foto{position: absolute; width: 100px; height: 120px;}
+    }
+    .seccion,.item{ margin: .5em 0; overflow: hidden;
+        .contenedor__cuadro{ height: 270px; position: relative; width: 100%;
+            > div{ position: absolute; }
+            .contenedor__cuadro__imagen{ background-color: @fondo_navigator; .alto_ancho(); top: 0; }
+            .contenedor__cuadro__nombre{ bottom: 5%; left: 0; .alto_ancho(50px, 90%);  background-color: @fondo_nombre;  font-family: 'Fjalla One'; font-size: 2.5rem; color: white; padding-left: 4.5%; padding-top: 3%; text-transform: uppercase;
+                &:before{ width: 10px; top: 0; content:''; left: -10px; height: 118%; position: absolute; background-image: url(/wp-content/uploads/material/nombre.png);background-size: cover;}
+            }
+        }
+        .separador{ padding: 2em; margin: .35em auto; overflow: auto; background-image: url(/wp-content/uploads/material/separador.png); background-repeat: no-repeat; background-position: center; }
+        .separador.medio{ padding-top: 0; background-image: none; }
+        .separador.compartir{background-image: none; background-color: @fondo_nombre; text-align:center;padding: .8em 0; .box-sizing(); width: 97%;
+            a{ width: 55px; height: 50px; .imagen_fondo('/wp-content/uploads/material/redes.png'); display: inline-block; vertical-align: middle;.transicion();
+                &:hover{background-image: url(/wp-content/uploads/material/redesh.png);}
+            }
+            .facebook{background-position: left center;}
+            .twitter{background-position: center center;}
+            .instagram{background-position: right center;}
+        }
+        .texto{ .textos(); }
+    }
+    .noticia__introduccion {
+        h1{ text-transform: uppercase; font-weight: bold; font-family: 'Lato',sans-serif; font-size: 4rem; color: rgba(0,0,0,.8); border-bottom: 3px solid black; padding-bottom: .5em; }
+        p{color: black; font-weight: bold; font-size: 2.1rem; text-align: justify;}
+    }
+    .noticia__imagen{ position: relative; width: 100%; height: 500px;
+        img{.alto_ancho(auto,100%); max-width: 100%; max-height: 100%; .absoluto() }
+    }
+    .noticia__texto{ padding: 0 1.8%; margin: 3% 0;
+        p{.textos();}
+    }
+    .border-derecha{border-right: thin solid @fondo_header;}
+    .datos{min-height: 88px;background-color: white; padding: .5em 0;margin-top: 1%;
+        span,a{font-weight: bold;display: block;color: @fondo_header; text-transform: uppercase; text-align: justify;}
+        .fecha,.personas{margin-top: 1%;}
+        .fecha,.twitter,.personas{margin-left: 10%;}
+    }
+}
+.articulos,.presentadores{ padding: .8em; background-color: rgba(226, 226, 226, 0.83); display: flex;
+    .item{flex: 1; background-color: @fondo_navigator; min-height: 300px; margin: 0 .15em; position: relative; overflow: hidden;
+        > div{position: absolute;.alto_ancho(100%,100%);}
+        .imagen{ top: 0; left: 0; background-image: url("http://i11c.3djuegos.com/juegos/10139/lego_movie_the_videogame/fotos/set/lego_movie_the_videogame-2456875.jpg");background-size: cover;
+            &:hover + .caption{top: 0%;}
+        }
+        .caption{top: 78%;.transicion(all,.3s,ease); background-color: rgba(128, 128, 128, 0.61);background-position: 108% 114%;background-repeat: no-repeat;background-size: 31%;
+            &:hover{top: 0; background-color: @fondo_header!important;background-image: url(/wp-content/uploads/material/logo.png);}
+            h3{.transicion();color: white; text-transform: uppercase; padding: 0 1.5em;cursor: pointer;font-family: 'Fjalla One','Lato', sans-serif;font-size: 2rem; word-wrap: break-word;margin-top: .6em;}
+            p{color: white;font-size: 1.8rem;border-bottom: 1px solid white; margin: 1em 1.8em .5em; padding-bottom: .5em;font-family: 'Open Sans Condensed', sans-serif; text-align: justify;}
+            .separador.compartir{background-color: transparent;}
+        }
+        .caption.blur{background-color: rgba(0,0,0,.69); top: 77%;
+            &:hover{top: 0;}
+        }
+    }
+}
+.articulos{padding-top: 0.1em;padding-bottom: 0.1em;}
+.noticias{
+    padding: .5em 0; background-color: rgba(226, 226, 226, 0.83);
+}
+.presentadores{ background-color: @fondo_navigator;
+    .item{ background-color: transparent; overflow: visible;
+        .contenedor__cuadro{ margin-left: 1em; .box-sizing(); }
+        .contenedor__cuadro__imagen{ margin: 4% auto!important; background-color: white!important; width: 95%!important; }
+        .contenedor__cuadro__nombre{width: 80%;}
+    }
+}
+.slide{min-height: 500px;}
+.banner{max-height: 150px; margin: .5em 0;
+    img{max-width: 100%;max-height: 100%;height: 150px;width: 100%}
+}
+.seccion__principal{padding: 1.5em; background-color: rgb(232, 232, 232);
+    .seccion__principal__contenedor{background-color: white; display: flex; overflow: hidden;
+        > div { flex: 1;}
+        .contenedor__izquierda{ flex: 1 1 45%; display: flex;
+            > div{ float: left; width: 48%; .box-sizing(); min-height: 368px; max-height: 100%; margin: 0 }
+            .articulo{ position: relative; cursor: pointer;
+                &:hover > .title h3{ background-color: #F05769; }
+                > div{ position: absolute; }
+                .imagen{ top: 0; left: 0; right: 0; width: 100%;height: 100%; max-width: 100%; margin: auto; position: absolute;  }
+                .title{ bottom: 10%;display: inline-block;left: 0;right: 0;margin: auto;width: 95%; 
+                    h3{text-align: center; color: white; font-family: 'Fjalla One'; font-size: 3.5rem; background-color: #00c5b9; padding: .8rem 0; margin: 0; .transicion();}
+                }
+                img{.alto_ancho(auto,100%);}
+            }
+        }
+        .contenedor__derecha{ padding: .5em;background-color: #00c5b9; color: white; .transicion(); cursor: pointer;
+            &:hover{ background-color: rgb(47, 55, 73); }
+            &:hover > .separador.compartir{ background-color: rgb(47, 55, 73); }
+            &:hover > .title h3{ background-color: #F05769; color: white; }
+            .title{
+                h3{text-align: center; color: #00c5b9; font-family: 'Fjalla One'; font-size: 3.5rem;width: 90%;margin: .2em auto;background: white;padding: 0.25em; .transicion(all,.2s,ease-in-out);}
+            }
+            .texto{
+                p{width: 90%;margin: .2em auto;text-align: justify;padding-bottom: .5em; border-bottom: 2px solid white;}
+            }
+        }
+        .ruleto{ }
+    }
+}
+.separador.compartir{background-image: none; background-color: @fondo_nombre; text-align:center;padding: .8em 0; .box-sizing(); width: 97%; .transicion();
+    a{ width: 55px; height: 50px; .imagen_fondo('/wp-content/uploads/material/redes.png'); display: inline-block; vertical-align: middle;.transicion();
+        &:hover{background-image: url(/wp-content/uploads/material/redesh.png);}
+    }
+    .facebook{background-position: left center;}
+    .twitter{background-position: center center;}
+    .instagram{background-position: right center;}
+}
+.slide{min-height: inherit;}
+.lista{position: absolute; .alto_ancho(100%,400px); min-width: 400px; top: 0; right: 0; z-index:9; overflow: auto; .box-sizing(); padding-top: 1.2em;
+    .lista__items{margin: .35em 0; .box-sizing(); padding-left: 0%;
+        > div{ display: inline-block; vertical-align: top;}
+        .lista__items__imagen{width: 27.5%; min-height: 130px; background-color: #d5d5d5; margin: .5em; .box-sizing()}
+        .lista__items__texto{width: 67.5%; margin: .5em 0; min-height: 100px; .box-sizing(); padding-top: 10%;
+            > h1,>p{ background-color: #d5d5d5; min-height: 5px; max-width: 85%;}
+            > h1{ min-height: 20px; max-width: 70%;}
+        }
+    }
+}
+.carousel-control.right{z-index: 10;}
+.carousel-inner>.item{min-height: 500px;}
+.carousel-inner>.item>img, .carousel-inner>.item>a>img {position: absolute;max-width: 100%;/*max-height: 100%;*/margin: auto;left: 0;right: 0;height: auto;width: 100%; top: 0;bottom: 0;}
+.carousel-control.left{ z-index: 4; }
+footer{
+    .separador.compartir{background-color: transparent;top: 55px;position: relative;text-align: left;padding-left: 4em;}
+}
+.mask{position: absolute;width: 100%;height: 100%;top: 0;z-index: 2;background: -webkit-linear-gradient(left,black,black,transparent,transparent, black, black);background: -moz-linear-gradient(left,black,black,transparent,transparent, black, black);background: linear-gradient(left,black,black,transparent,transparent, black, black);}
