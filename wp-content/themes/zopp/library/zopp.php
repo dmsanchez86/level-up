@@ -27,13 +27,19 @@ function custom_header(){?>
 <header>
 	<div class="container">
 		<section class="logo">
-			<div class="col-lg-12 col-md-12 col-xs-12">
+			<div class="col-lg-4 col-md-4 col-xs-3">
+				<div class="separador compartir">
+                    <a href="http://facebook.com/OnlineLevelUp"  target="_blank" class="facebook"></a> | <a href="http://twitter.com/LevelUpOnline" target="_blank" class="twitter"></a> | <a href="http://facebook.com/OnlineLevelUp" target="_blank" class="instagram"></a>
+                </div>
+			</div>
+			<div class="col-lg-4 col-md-4 col-xs-6">
 				<a href="/#/">
 					<div class="logo__contenedor">
-						<img src="/wp-content/uploads/2015/04/logo-alta-level-up.png" class="logo__imagen"/>
+						<img src="/" class="logo__imagen"/>
 					</div>
 				</a>
 			</div>
+			<div class="col-lg-4 col-md-4 col-xs-3"></div>
 		</section>
 	</div>
 </header>
@@ -43,12 +49,13 @@ function custom_header(){?>
 			<ul>
 				<li><a href="/#/">Home</a></li>
 				<li><a href="/#/contacto">Contacto</a></li>
-				<li><a href="/#/noticias">Noticias</a></li>
+				<li><a href="/#/presentadores">Presentadores</a></li>
+				<!--<li><a href="/#/noticias">Noticias</a></li>
 				<li><a href="/#/eventos">Eventos</a></li>
-				<li><a href="/#/custom">custom</a></li>
+				<li><a href="/#/custom">custom</a></li>-->
 			</ul>
 		</nav>
-		<article class="mano"></article>
+		<article class="mano mano_loading"></article>
 	</div>
 </section>
 <?php
@@ -60,13 +67,15 @@ function pie_de_pagina(){?>
 			<section class="logo">
 				<div class="col-lg-4 col-md-4 col-xs-3">
 					<div class="separador compartir">
-	                    <a href="http://facebook.com/OnlineLevelUp" class="facebook"></a> | <a href="http://twitter.com/LevelUpOnline" class="twitter"></a> | <a href="http://facebook.com/OnlineLevelUp" class="google"></a>
+	                    <a href="http://facebook.com/OnlineLevelUp" target="_blank" class="facebook"></a> | <a href="http://twitter.com/LevelUpOnline"  target="_blank" class="twitter"></a> | <a href="http://facebook.com/OnlineLevelUp" target="_blank" class="instagram"></a>
 	                </div>
 				</div>
 				<div class="col-lg-4 col-md-4 col-xs-6">
-					<div class="logo__contenedor">
-						<img src="/wp-content/uploads/material/logo.png" class="logo__imagen"/>
-					</div>
+					<a href="/#/">
+						<div class="logo__contenedor">
+							<img src="/" class="logo__imagen"/>
+						</div>
+					</a>
 				</div>
 				<div class="col-lg-4 col-md-4 col-xs-3"></div>
 			</section>
@@ -75,6 +84,10 @@ function pie_de_pagina(){?>
 			</div>
 		</div>
 	</footer>
+	<div class="loader">
+	    <div>Cargando</div>
+	</div>
+
 	<style>
 		.soporte{background-color:white}
 		#centro{min-height: 60px!important;}
@@ -85,6 +98,186 @@ function pie_de_pagina(){?>
 function custom_loop(){
 	$tpl = new RaintTplConnect("wp-content/themes/zopp/library/plantillas/");
 	$tpl->dibujarPlantilla("index",array("1"));
+}
+
+add_action('wp_ajax_nopriv_menu_slider', 'menu_slider');
+add_action('wp_ajax_menu_slider', 'menu_slider');
+
+function menu_slider(){
+	$datos = select_post_cat_slug("menu-inicio",3,false);
+	echo json_encode($datos);
+	die();
+}
+
+add_action('wp_ajax_nopriv_presentadores', 'presentadores');
+add_action('wp_ajax_presentadores', 'presentadores');
+
+function presentadores(){
+	
+	if(isset($_GET['ref'])){
+		$datos = select_post_cat_slug("presentadores",4,false); // Retorna solo cuatro que seran para el inicio
+	}else{
+		$datos = select_post_cat_slug("presentadores",-1,false); // Retorna todos los presentadores que iran ya en su respectiva página
+	}
+	
+	echo json_encode($datos);
+	die();
+}
+
+add_action('wp_ajax_nopriv_menu', 'menu');
+add_action('wp_ajax_menu', 'menu');
+
+function menu(){
+	$categorias = array();
+	
+	$args = array(
+		'parent'                   	=> '5',
+		'hide_empty'				=>false
+	); 
+
+	$datos = get_categories($args);
+	
+	foreach($datos as $item){
+		$categorias[] = array(
+			'img'		=>get_field('imagen','category_'.$item->term_id),
+			'titulo'	=>$item->cat_name,
+			'id'		=>$item->cat_ID
+		);
+	}
+	
+	echo json_encode($categorias);
+	die();
+}
+
+add_action('wp_ajax_nopriv_slider', 'slider');
+add_action('wp_ajax_slider', 'slider');
+
+function slider(){
+	$datos = select_post_cat_slug("slider",-1,false);
+	
+	$newDatos = array();
+	
+	$counter = 0;
+	foreach($datos as $iterable){
+		
+		if($counter==0){
+		    $tmp = $iterable;		
+			
+			$tmp["isActive"] = true;
+			
+			$iterable = $tmp;
+			
+		}
+		$newDatos[] = $iterable;
+		
+		$counter++;
+	}
+	
+	echo json_encode($newDatos);
+	
+	die();
+}
+
+add_action('wp_ajax_nopriv_banner', 'banner');
+add_action('wp_ajax_banner', 'banner');
+
+function banner(){
+	$data  = array('img'=>get_field('imagen','category_'.'9'));
+	echo json_encode($data);
+	
+	die();
+}
+
+add_action('wp_ajax_nopriv_noticias', 'noticias');
+add_action('wp_ajax_noticias', 'noticias');
+
+function noticias(){
+	$data = array();
+	
+	if(isset($_GET['id'])){
+		$id = $_GET['id'];
+		
+		$data = obtener_post_por_palabra_categoria_limite('',$id,'');
+	}else if(isset($_GET['ref'])){
+		
+		$nn = select_post_cat_slug("noticias",-1,false);
+		shuffle($nn);
+		
+		$data = array(
+			'entradas'=> $nn
+		);
+		
+	}else{
+		$data = array(
+			'entradas'=> select_post_cat_slug("noticias",-1,false)
+		);
+	}
+	
+	echo json_encode($data);
+	die();
+	
+	
+}
+
+add_action('wp_ajax_nopriv_entrada', 'entrada');
+add_action('wp_ajax_entrada', 'entrada');
+
+function entrada(){
+	$id = $_GET['id'];
+	$data = array(
+			'metadata' 	=> select_post_id($id),
+			'autore'	=> array(
+					'name' => get_field('imagen','category_'.$id)
+				)
+		);
+	echo json_encode($data);
+	die();
+}
+
+add_action('wp_ajax_nopriv_logo_page', 'logo_page');
+add_action('wp_ajax_logo_page', 'logo_page');
+
+function logo_page(){
+	$data  = array('img'=>get_field('imagen','category_'.'10'));
+	echo json_encode($data);
+	
+	die();
+}
+
+add_action('wp_ajax_nopriv_form', 'form');
+add_action('wp_ajax_form', 'form');
+
+function form(){
+	$name = $_GET['name'];
+	$email = $_GET['email'];
+	$message = $_GET['message'];
+	
+	$email_to = "dmsanchez86@misena.edu.co";
+	$email_subject = "Formulario enviado a traves de la pagina web";
+	$remitente = $name;
+		
+		
+	
+	$email_message = '<html><body>';
+	$email_message .= '';
+	$email_message .= "Nombre: ".$name."<br>";
+	$email_message .= "Email: ".$email."<br>";
+	$email_message .= "Asunto: ".$message."<br>";
+	$email_message .= "Mensaje: ".$message."<br>";
+
+			
+	
+	$headers = "From: " . $remitente. "\r\n";
+	$headers .= "MIME-Version: 1.0\r\n";
+	$headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+	
+
+	@mail($email_to, $email_subject, $email_message, $headers);
+	
+	
+		
+	echo "Se envio el email al correo $email_to";
+	die();
 }
 
 include_once "funcionesjson.php";

@@ -93,12 +93,10 @@ function obtener_post_por_palabra_categoria_limite($palabra="",$categoria="",$li
         $limite = $_POST['limite'];
     }
     $args = array(
-    'posts_per_page' => $limite,
     'post_type' => 'post',
-    'category_name' => $categoria,
+    'cat' => $categoria,
     'orderby' => 'name',
-    'order' => 'ASC',
-    's' => $palabra, 
+    'order' => 'ASC'
     );
     $the_query = new WP_Query($args);
     if ( $the_query->have_posts() ) {

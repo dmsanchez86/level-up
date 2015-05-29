@@ -1,0 +1,35 @@
+<div class="container">
+    <div class="title_category" style="background-image: url({{img}})">
+    </div>
+    <div id="content">
+        <div class="contenedor">
+            <div class="title"><h1><span>NOTICIAS</span></h1></div>
+            <div class="noticias">  
+                <article class="articulos">
+                    <section class="item" ng-repeat="ite in datos track by $index">
+                        <div class="imagen" style="background-image: url( {{ite.urlimg[0]}} )"></div>
+                        <div class="caption blur" ng-click="noticia(ite.id)">
+                            <h3 >{{ite.titulo}}</h3>
+                            <p ng-bind-html="ite.resumen | filterHtml"></p>
+                            <!--<div class="separador compartir">
+                                <a href="http://facebook.com/OnlineLevelUp" class="facebook"></a> | <a href="http://twitter.com/LevelUpOnline" class="twitter"></a> | <a href="https://instagram.com/leveluponline" class="instagram"></a>
+                            </div>-->
+                        </div>
+                    </section>
+                </article>
+                <div class="left"></div>
+                <div class="right"></div>
+                <div class="loader_notices"></div>
+            </div>
+            <div class="title"><h1><span>PRESENTADORES</span></h1></div>
+            <div class="presentadores">
+                <div class="item" ng-repeat="item in presentadores track by $index">
+                    <div class="contenedor__cuadro">
+                        <div class="contenedor__cuadro__imagen"><img src="{{item.urlimg[0]}}"></div>
+                        <div class="contenedor__cuadro__nombre"> {{item.titulo}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

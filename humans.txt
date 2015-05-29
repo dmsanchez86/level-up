@@ -1,0 +1,18 @@
+ _      _____ _   _ _____ _       _   _______ 
+| |    |  ___| | | |  ___| |     | | | | ___ \
+| |    | |__ | | | | |__ | |     | | | | |_/ /
+| |    |  __|| | | |  __|| |     | | | |  __/ 
+| |____| |___\ \_/ / |___| |____ | |_| | |    
+\_____/\____/ \___/\____/\_____/  \___/\_|  
+
+/* MAIN */
+  Develop & Main Design: Daniel M. Sanchez
+  Twitter: @D_anielSanchez
+  Site: http://www.github.com/dmsanchez86
+
+/* SITE */
+  Last update: 08/05/2015
+  Doctype: HTML5, CSS3, JavaScript, Jquery
+  IDE: Sublime Text 3, Cloud9
+
+  And, of course, all humanstxt.org team!

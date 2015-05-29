@@ -15,6 +15,7 @@ function bfg_scripts_and_styles() {
     wp_register_style( 'animate-css', get_stylesheet_directory_uri() . '/library/css/animate.css', array(), '' );
     wp_register_style( 'font-awesome-css', get_stylesheet_directory_uri() . '/library/css/font-awesome.min.css', array(), '' );
     wp_register_style( 'normalize-css', get_stylesheet_directory_uri() . '/library/css/normalize.css', array(), '' );
+    wp_register_style( 'materialize-css', get_stylesheet_directory_uri() . '/library/css/materialize.min.css', array(), '' );
 
 
     wp_register_style( 'owl-theme', 'http://owlgraphic.com/owlcarousel/owl-carousel/owl.theme.css', array(), '' );
@@ -40,6 +41,7 @@ function bfg_scripts_and_styles() {
     wp_register_script( 'zoppscript', get_stylesheet_directory_uri() . '/library/js/zopp.js', array( 'jquery' ), '', true );
     wp_register_script( 'boostrap-js', get_stylesheet_directory_uri() . '/library/js/libs/bootstrap-3.2.0-dist/js/bootstrap.min.js', array( 'jquery' ), '', true );
     wp_register_script( 'boostrap-js', get_stylesheet_directory_uri() . '/library/js/libs/bootstrap-3.2.0-dist/js/bootstrap.min.js', array( 'jquery' ), '', true );
+    wp_register_script( 'materialize-js', get_stylesheet_directory_uri() . '/library/js/mateialize.min.js', array( 'jquery' ), '', true );
     wp_register_script( 'scroll-js', get_stylesheet_directory_uri() . '/library/js/libs/jquery.fancy-scroll.js', array( 'jquery' ), '', true );
     wp_register_script( 'viewport-js', get_stylesheet_directory_uri() . '/library/js/libs/viewportchecker.js', array( 'jquery' ), '', true );
     wp_register_script( 'owl-js', 'http://owlgraphic.com/owlcarousel/owl-carousel/owl.carousel.min.js', array( 'jquery' ), '', true );
@@ -54,6 +56,7 @@ function bfg_scripts_and_styles() {
     wp_enqueue_style('bones-ie-only');
     wp_enqueue_style('boostrap-theme');
     wp_enqueue_style('boostrap-css');
+    #wp_enqueue_style('materialize-css');
     wp_enqueue_style('owl-theme');
     wp_enqueue_style('owl-css');
     wp_enqueue_style('lato-css');
@@ -83,6 +86,7 @@ function bfg_scripts_and_styles() {
     wp_enqueue_script( 'zoppscriptgenerales' );
     wp_enqueue_script( 'zoppscript' );
     wp_enqueue_script( 'boostrap-js' );
+    #wp_enqueue_script( 'materialize-js' );
     wp_enqueue_script( 'owl-js' );
     wp_enqueue_script( 'scroll-js' );
     wp_enqueue_script( 'viewport-js' );

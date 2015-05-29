@@ -1,0 +1,46 @@
+<div class="container">
+    <div id="content">
+        <div class="contenedor">
+            <div class="title"><h1><span>PRESENTADORES</span></h1></div>
+            <div class="row clearfix">
+                <div class="col-lg-1 col-md-1 col-xs-1"></div>
+                <div class="col-lg-10 col-md-10 col-xs-10">
+                    <section class="seccion" ng-repeat="item in presentadores_page track by $index">
+                        <div ng-if="$index % 2 == 0">
+                            <div class="separador medio"></div>
+                            <div class="col-lg-4 col-md-4">
+                                <div class="contenedor__cuadro">
+                                    <div class="contenedor__cuadro__imagen">
+                                        <img src="{{item.urlimg[0]}}">
+                                    </div>
+                                    <div class="contenedor__cuadro__nombre">{{item.titulo}}</div>
+                                </div>
+                            </div>
+                            <div class="col-lg-8  col-md-8">
+                                <div class="texto" ng-bind-html="item.contenidocomleto | filterHtml"></div>
+                            </div>
+                            <div class="row"></div>
+                            <div class="separador"></div>
+                        </div>
+                        <div ng-if="$index % 2 == 1">
+                        <div class="col-lg-8  col-md-8">
+                                <div class="texto" ng-bind-html="item.contenidocomleto | filterHtml"></div>
+                        </div>
+                        <div class="col-lg-4  col-md-4">
+                            <div class="contenedor__cuadro">
+                                <div class="contenedor__cuadro__imagen">
+                                    <img src="{{item.urlimg[0]}}">
+                                </div>
+                                <div class="contenedor__cuadro__nombre">{{item.titulo}}</div>
+                            </div>
+                        </div>
+                        <div class="row"></div>
+                        <div class="separador medio"></div>
+                        </div>
+                    </section>
+                </div>
+                <div class="col-lg-1 col-md-1 col-xs-1"></div>
+            </div>
+        </div>
+    </div>
+</div>
