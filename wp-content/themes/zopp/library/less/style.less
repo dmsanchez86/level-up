@@ -155,7 +155,7 @@ body{ .imagen_fondo('/wp-content/uploads/material/fondo_body.png',100%,repeat,0 
         .imagen{ top: 0; left: 0; background-size: contain; background-position: center; background-repeat: no-repeat; background-image: url("http://i11c.3djuegos.com/juegos/10139/lego_movie_the_videogame/fotos/set/lego_movie_the_videogame-2456875.jpg");
             &:hover + .caption{top: 0%;}
         }
-        .caption{top: 78%;.transicion(all,.4s,ease); background-color: rgba(128, 128, 128, 0.61);background-position: right bottom;background-repeat: no-repeat;background-size: 70px;
+        .caption{top: 85%;.transicion(all,.4s,ease); background-color: rgba(128, 128, 128, 0.61);background-position: right bottom;background-repeat: no-repeat;background-size: 70px;
             &:hover{top: 0; background-color: @fondo_header!important;background-image: url(/wp-content/uploads/material/icon_notice.png);}
             h3{.transicion();color: white; text-transform: uppercase; padding: 0 1.5em;cursor: pointer;font-family: 'Fjalla One','Lato', sans-serif;font-size: 2rem; word-wrap: break-word;margin-top: .6em;}
             p{color: white;font-size: 1.8rem;border-bottom: 1px solid white; margin: 1em 1.8em .5em; padding-bottom: .5em;font-family: 'Open Sans Condensed', sans-serif; text-align: left;overflow: hidden;
@@ -218,17 +218,17 @@ body{ .imagen_fondo('/wp-content/uploads/material/fondo_body.png',100%,repeat,0 
             }
         }
         .contenedor__derecha{ padding: .5em;background-color: #00c5b9; color: white; .transicion(); cursor: pointer;
-            &:hover{ background-color: rgb(47, 55, 73); }
+            &:hover{ background-color: rgba(47, 55, 73,0); }
             &:hover > .separador.compartir{ background-color: rgb(47, 55, 73); }
-            &:hover > .title h3{ background-color: #F05769; color: white; }
+            &:hover > .title h3{ background-color: #F05769; color: white; background-image: url('/wp-content/uploads/material/levelh.png'); }
+            &:hover .texto p{color: #323232;}
             .title{
-                h3{text-align: center; color: #00c5b9; font-family: 'Fjalla One'; font-size: 3.5rem;width: 90%;margin: .2em auto;background: white;padding: 0.25em; .transicion(all,.2s,ease-in-out);}
+                h3{text-align: center; color: #00c5b9; font-family: 'Fjalla One'; font-size: 3.5rem;width: 95%;margin: .2em auto;background: white;padding: 1.25em 0; .transicion(all,.2s,ease-in-out);.imagen_fondo('/wp-content/uploads/material/level.png',cover,no-repeat,center);}
             }
             .texto{
                 p{width: 90%;margin: .2em auto;text-align: justify;padding-bottom: .5em; border-bottom: 2px solid white;max-height: 161px;}
             }
         }
-        .ruleto{ }
     }
 }
 .separador.compartir{background-image: none; background-color: @fondo_nombre; text-align:center;padding: .8em 0; .box-sizing(); width: 97%; .transicion();

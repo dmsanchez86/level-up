@@ -502,7 +502,7 @@ body {
 }
 .articulos .item .caption,
 .presentadores .item .caption {
-  top: 78%;
+  top: 85%;
   -webkit-transition: all 0.4s ease;
   -khtml-transition: all 0.4s ease;
   -moz-transition: all 0.4s ease;
@@ -839,7 +839,7 @@ body {
   cursor: pointer;
 }
 .seccion__principal .seccion__principal__contenedor .contenedor__derecha:hover {
-  background-color: #2f3749;
+  background-color: rgba(47, 55, 73, 0);
 }
 .seccion__principal .seccion__principal__contenedor .contenedor__derecha:hover > .separador.compartir {
   background-color: #2f3749;
@@ -847,22 +847,30 @@ body {
 .seccion__principal .seccion__principal__contenedor .contenedor__derecha:hover > .title h3 {
   background-color: #F05769;
   color: white;
+  background-image: url('/wp-content/uploads/material/levelh.png');
+}
+.seccion__principal .seccion__principal__contenedor .contenedor__derecha:hover .texto p {
+  color: #323232;
 }
 .seccion__principal .seccion__principal__contenedor .contenedor__derecha .title h3 {
   text-align: center;
   color: #00c5b9;
   font-family: 'Fjalla One';
   font-size: 3.5rem;
-  width: 90%;
+  width: 95%;
   margin: .2em auto;
   background: white;
-  padding: 0.25em;
+  padding: 1.25em 0;
   -webkit-transition: all 0.2s ease-in-out;
   -khtml-transition: all 0.2s ease-in-out;
   -moz-transition: all 0.2s ease-in-out;
   -ms-transition: all 0.2s ease-in-out;
   -o-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
+  background-image: url('/wp-content/uploads/material/level.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 .seccion__principal .seccion__principal__contenedor .contenedor__derecha .texto p {
   width: 90%;
