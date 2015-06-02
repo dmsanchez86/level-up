@@ -74,10 +74,10 @@
                 id:id
             }
         }).success(function(res){
-               //console.log(JSON.parse(res));
-               $rootScope.datos = res;
-               console.log($rootScope.datos);
-               $scope.datos = $rootScope.datos;
+           //console.log(JSON.parse(res));
+           $rootScope.datos = res;
+           console.log($rootScope.datos);
+           $scope.datos = $rootScope.datos;
         });
         
         jQuery(document).ready(function(){
@@ -491,6 +491,12 @@
                 jQuery('.noticias .articulos').removeClass('blur');
             },1000);
         });
+        
+        // Click de mas noticias
+        jQuery('.more_notices').unbind('click').click(function(){
+           var url = "."+jQuery(this).attr('data-url');
+           jQuery('body').animate({scrollTop: jQuery(url).offset().top - 5},2000);
+       });
         
         // Ajax para el logo
         $http({

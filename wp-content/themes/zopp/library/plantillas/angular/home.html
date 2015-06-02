@@ -1,13 +1,15 @@
 <div class="container">
     <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
-          <li data-target="#carousel-example-generic" data-slide-to="0" class=""></li>
-          <li data-target="#carousel-example-generic" data-slide-to="1" class="active"></li>
-          <li data-target="#carousel-example-generic" data-slide-to="2" class=""></li>
+          <li data-target="#carousel-example-generic"data-slide-to="{{$index}}" ng-class="{'active': $index==0 }" ng-repeat="item in slider track by $index"></li>
         </ol>
         <div class="carousel-inner">
           <div class="item" ng-repeat="item in slider track by $index" ng-class="{'active': item.isActive}">
             <img alt="{{item.titulo}}" src="{{item.urlimg[0]}}">
+            <div class="carousel-caption">
+                <h4>{{item.titulo}}</h4>
+                <p ng-bind-html="item.resumen | filterHtml"></p>
+              </div>
           </div>
         </div>
         <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
@@ -17,7 +19,7 @@
           <span class="glyphicon glyphicon-chevron-right"></span>
         </a>
         <div class="lista">
-            <div class="lista__items" ng-repeat="data in menu_slider track by $index">
+            <div class="lista__items"  ng-click="noticia(data.id)" ng-repeat="data in menu_slider track by $index">
                 <div class="lista__items__imagen">
                     <img src="{{data.urlimg[0]}}"/>
                 </div>
@@ -26,6 +28,7 @@
                     <p ng-bind-html="data.contenidocomleto | filterHtml"></p>
                 </div>
             </div>
+            <div class="more_notices" data-url="contenedor">Más Noticias</div>
         </div>
         <div class="mask"></div>
   </div>
