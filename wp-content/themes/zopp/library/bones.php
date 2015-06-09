@@ -12,6 +12,7 @@ function bfg_scripts_and_styles() {
 	
     wp_register_style( 'boostrap-css', get_stylesheet_directory_uri() . '/library/js/libs/bootstrap-3.2.0-dist/css/bootstrap.min.css', array(), '' );
     wp_register_style( 'boostrap-theme', get_stylesheet_directory_uri() . '/library/js/libs/bootstrap-3.2.0-dist/css/bootstrap-theme.min.css', array(), '' );
+    wp_register_style( 'angular-css', get_stylesheet_directory_uri() . '/library/css/a_a.css', array(), '' );
     wp_register_style( 'animate-css', get_stylesheet_directory_uri() . '/library/css/animate.css', array(), '' );
     wp_register_style( 'font-awesome-css', get_stylesheet_directory_uri() . '/library/css/font-awesome.min.css', array(), '' );
     wp_register_style( 'normalize-css', get_stylesheet_directory_uri() . '/library/css/normalize.css', array(), '' );
@@ -64,6 +65,7 @@ function bfg_scripts_and_styles() {
     wp_enqueue_style('lora-css');
     wp_enqueue_style('open-css');
     wp_enqueue_style('font-awesome-css');
+    wp_enqueue_style('angular-css');
     wp_enqueue_style('animate-css');
     wp_enqueue_style('responsive-css');
     // wp_enqueue_style('grid-css');

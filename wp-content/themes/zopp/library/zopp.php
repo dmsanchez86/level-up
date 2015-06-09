@@ -29,7 +29,7 @@ function custom_header(){?>
 		<section class="logo">
 			<div class="col-lg-4 col-md-4 col-xs-3">
 				<div class="separador compartir">
-                    <a href="http://facebook.com/OnlineLevelUp"  target="_blank" class="facebook"></a> | <a href="http://twitter.com/LevelUpOnline" target="_blank" class="twitter"></a> | <a href="http://facebook.com/OnlineLevelUp" target="_blank" class="instagram"></a>
+                    <a href="https://www.facebook.com/tvplayapp"  target="_blank" class="facebook"></a> | <a href="http://twitter.com/playapptv" target="_blank" class="twitter"></a> | <a href="https://instagram.com/playapptv/" target="_blank" class="instagram"></a>
                 </div>
 			</div>
 			<div class="col-lg-4 col-md-4 col-xs-6">
@@ -67,7 +67,7 @@ function pie_de_pagina(){?>
 			<section class="logo">
 				<div class="col-lg-4 col-md-4 col-xs-3">
 					<div class="separador compartir">
-	                    <a href="http://facebook.com/OnlineLevelUp" target="_blank" class="facebook"></a> | <a href="http://twitter.com/LevelUpOnline"  target="_blank" class="twitter"></a> | <a href="http://facebook.com/OnlineLevelUp" target="_blank" class="instagram"></a>
+	                    <a href="http://facebook.com/tvplayapp" target="_blank" class="facebook"></a> | <a href="http://twitter.com/playapptv"  target="_blank" class="twitter"></a> | <a href="https://instagram.com/playapptv/" target="_blank" class="instagram"></a>
 	                </div>
 				</div>
 				<div class="col-lg-4 col-md-4 col-xs-6">
@@ -225,10 +225,21 @@ add_action('wp_ajax_entrada', 'entrada');
 function entrada(){
 	$id = $_GET['id'];
 	$data = array(
-			'metadata' 	=> select_post_id($id),
-			'autore'	=> array(
-					'name' => get_field('imagen','category_'.$id)
-				)
+			'metadata'=> get_post($id),
+			'url' => wp_get_attachment_url(get_post_meta($id)["imagen"][0]) 
+		);
+	$data["imagen"] = wp_get_attachment_url( get_post_thumbnail_id($id) );
+	echo json_encode($data);
+	die();
+}
+
+add_action('wp_ajax_nopriv_entrada_', 'entrada_');
+add_action('wp_ajax_entrada_', 'entrada_');
+
+function entrada_(){
+	$id = $_GET['id'];
+	$data = array(
+			'data_entrade'=> select_post_id($id)
 		);
 	echo json_encode($data);
 	die();

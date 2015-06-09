@@ -2,10 +2,11 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.13/angular-animate.js"></script>
 
 <script type="text/javascript">
   
- var app = angular.module('app', ['ngRoute']);
+ var app = angular.module('app', ['ngRoute', 'ngAnimate']);
 
     // configure our routes
     app.config(['$routeProvider', function($routeProvider) {
@@ -51,7 +52,13 @@
     // create the controller and inject Angular's $scope
     app.controller('categoriesController', ['$scope','$http','$rootScope','$routeParams', function($scope,$http,$rootScope,$routeParams) {
         // create a message to display in our view
-        animar_contenedor();
+        var animations = ['page-home','page-contact','page-about'];
+    
+        $scope.pageClass = animations[0];
+        
+        setTimeout(function(){
+            animar_contenedor();
+        },500);
         
         var id = $routeParams.id;
         
@@ -74,9 +81,7 @@
                 id:id
             }
         }).success(function(res){
-           //console.log(JSON.parse(res));
            $rootScope.datos = res;
-           console.log($rootScope.datos);
            $scope.datos = $rootScope.datos;
         });
         
@@ -132,7 +137,7 @@
             var gif = ['110.GIF','285.GIF','300.GIF','301.GIF','480.GIF','728.GIF'];
             var x = 0;
             jQuery('.noticias > div').unbind('click').click(function(e){
-            //debugger;
+            debugger;
                 
                 x = Math.floor((Math.random() * 6) + 1);
                 var paginador = e.target.className;
@@ -146,7 +151,10 @@
                         jQuery('.noticias').find('.articulos').addClass('blur').css('top',top+'px');
                     }
                 }else{
-                    if(jQuery('.articulos').css('top') == "0px"){
+                    if(( tope - 5 ) <= ( height * 1 ) + 5 ){
+                        return; 
+                    }
+                    else if(jQuery('.articulos').css('top') == "0px"){
                         jQuery('.loader_notices').css('background-image','url(/wp-content/uploads/material/'+gif[x-1]+')').show();
                         top = height;
                         jQuery('.noticias').find('.articulos').addClass('blur').css('top',top+'px');
@@ -178,8 +186,6 @@
         }).success(function(data, status, headers, config) {
             
             $scope.logo = data;
-            console.log('e');
-            console.log(data.img);
             jQuery('.logo__imagen').attr('src',data.img);
             
         }).error(function(data, status, headers, config) {
@@ -197,24 +203,28 @@
         }).success(function(data, status, headers, config) {
             
             $scope.presentadores = data;
-            //console.log(data);
-            
         }).error(function(data, status, headers, config) {
             alert("no ejecuto el ajax");
         });
         
         $scope.noticia=function(id){
-            animar_contenedor();
+            // animar_contenedor();
             window.location = "/#/noticias/"+id;
         }
         
-        $scope.titulo_pagina = 'Categories -- Level Up';
+        $scope.titulo_pagina = 'Categories -- Play App';
         jQuery("title").html($scope.titulo_pagina);
     }]);
     
     app.controller('presentadoresController', ['$scope','$http','datos_noticias', function($scope,$http,datos_noticias) {
         // create a message to display in our view
-        animar_contenedor();
+        var animations = ['page-home','page-contact','page-about'];
+    
+        $scope.pageClass = animations[0];
+        
+        setTimeout(function(){
+            animar_contenedor();
+        },500);
         
         // Ajax para el logo
         $http({
@@ -226,8 +236,6 @@
         }).success(function(data, status, headers, config) {
             
             $scope.logo = data;
-            console.log('e');
-            console.log(data.img);
             jQuery('.logo__imagen').attr('src',data.img);
             
         }).error(function(data, status, headers, config) {
@@ -244,14 +252,12 @@
         }).success(function(data, status, headers, config) {
             
             $scope.presentadores_page = data;
-            console.log(data);
-            
         }).error(function(data, status, headers, config) {
             alert("no ejecuto el ajax");
         });
         
         $scope.message = 'Everyone come and see how good I look!';
-        $scope.titulo_pagina = 'Presentadores -- Level Up';
+        $scope.titulo_pagina = 'Presentadores -- Play App';
         jQuery("title").html($scope.titulo_pagina);
     }]);
     
@@ -259,8 +265,12 @@
     app.controller('noticiaController',[ '$scope','$http','$routeParams', function($scope,$http,$routeParams) {
         // create a message to display in our view
         $scope.id = $routeParams.id;
-        animar_contenedor();
-        
+        var animations = ['page-home','page-contact','page-about'];
+    
+        $scope.pageClass = animations[0];
+        setTimeout(function(){
+            animar_contenedor();
+        },500);
         // Ajax para el logo
         $http({
             url: ajaxurl,
@@ -271,8 +281,6 @@
         }).success(function(data, status, headers, config) {
             
             $scope.logo = data;
-            console.log('e');
-            console.log(data.img);
             jQuery('.logo__imagen').attr('src',data.img);
             
         }).error(function(data, status, headers, config) {
@@ -288,37 +296,87 @@
                 id:$scope.id
             }
         }).success(function(data, status, headers, config) {
-            
+            console.log('esteeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee');
+            console.log(data);
             try{
                 
-                $scope.titulo_entrada = data[0].titulo;
-                $scope.resumen = data[0].resumen;
-                $scope.contenido = data[0].contenidocomleto;
-                $scope.img = data[0].urlimg[0];
+                $scope.titulo_entrada = data.metadata.post_title;
+                $scope.resumen = data.metadata.post_content;
+                 $scope.contenido = data.metadata.post_content;
+                 $scope.img = data.imagen;
                 
-                $scope.datos = data;
-                $scope.autor = data[0].custom_fields.autor[0];
-                $scope.twitter = data[0].custom_fields.twitter[0];
-                $scope.twitter_url = data[0].custom_fields.twitter[0].split('@')[1];
-                $scope.img_autor = data[0].custom_fields.img[0];
-                
+                //  $scope.datos = data;
+                //  $scope.autor = data[0].custom_fields.autor[0];
+                // $scope.twitter = data[0].custom_fields.twitter[0];
+                // $scope.twitter_url = data[0].custom_fields.twitter[0].split('@')[1];
+                if(data.url == false || data.url == null){
+                    $scope.img_autor = "http://s3.amazonaws.com/37assets/svn/765-default-avatar.png";
+                }else{
+                    $scope.img_autor =  data.url;//"http://s3.amazonaws.com/37assets/svn/765-default-avatar.png";  
+                }
+                // console.warn(data);
+               // alert($scope.img_autor);
             }catch(e){
-                $scope.titulo_entrada = data[0].titulo;
-                $scope.resumen = data[0].resumen;
-                $scope.contenido = data[0].contenidocomleto;
-                $scope.img = data[0].urlimg[0];
+                // $scope.titulo_entrada = data[0].post_title;
+                // $scope.resumen = data[0].resumen;
+                // $scope.contenido = data[0].contenidocomleto;
+                // $scope.img = data[0].urlimg[0];
                 
-                $scope.datos = data;
-                $scope.autor = data[0].custom_fields.autor[0];
+                // $scope.datos = data;
+                // $scope.autor = data[0].custom_fields.autor[0];
+                // $scope.twitter = data[0].custom_fields.twitter[0];
+                // $scope.twitter_url = data[0].custom_fields.img[0];er[0].split('@')[1];
+                 $scope.img_autor = "http://s3.amazonaws.com/37assets/svn/765-default-avatar.png";  
+                // alert(data[0].g);
+                // alert($scope.img_autor);
+            }
+        }).error(function(data, status, headers, config) {
+            alert("no ejecuto el ajax");
+        });
+        
+        // ajax que trae todos los datos de la entrada 2
+        $http({
+            url: ajaxurl,
+            method: "GET",
+            params: {
+                action:"entrada_",
+                id:$scope.id
+            }
+        }).success(function(data, status, headers, config) {
+            console.log('esteeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee------------------------');
+            console.log(data);
+            // try{
+                
+            //     $scope.titulo_entrada = data.metadata.post_title;
+            //     $scope.resumen = data.metadata.post_content;
+            //      $scope.contenido = data.metadata.post_content;
+            //      $scope.img = data.imagen;
+                
+            //     //  $scope.datos = data;
+                 $scope.autor = data[0].custom_fields.autor[0];
                 $scope.twitter = data[0].custom_fields.twitter[0];
                 $scope.twitter_url = data[0].custom_fields.twitter[0].split('@')[1];
-                $scope.img_autor = "http://s3.amazonaws.com/37assets/svn/765-default-avatar.png";    
-            }
-            
-            
-            console.log(data[0]);
-            console.log('---------');
-            console.log($scope.img_autor);
+            //     if(data.url == false || data.url == null){
+            //         $scope.img_autor = "http://s3.amazonaws.com/37assets/svn/765-default-avatar.png";
+            //     }else{
+            //         $scope.img_autor =  data.url;//"http://s3.amazonaws.com/37assets/svn/765-default-avatar.png";  
+            //     }
+            //     // console.warn(data);
+            //   // alert($scope.img_autor);
+            // }catch(e){
+            //     // $scope.titulo_entrada = data[0].post_title;
+            //     // $scope.resumen = data[0].resumen;
+            //     // $scope.contenido = data[0].contenidocomleto;
+            //     // $scope.img = data[0].urlimg[0];
+                
+            //     // $scope.datos = data;
+            //     // $scope.autor = data[0].custom_fields.autor[0];
+            //     // $scope.twitter = data[0].custom_fields.twitter[0];
+            //     // $scope.twitter_url = data[0].custom_fields.img[0];er[0].split('@')[1];
+            //      $scope.img_autor = "http://s3.amazonaws.com/37assets/svn/765-default-avatar.png";  
+            //     // alert(data[0].g);
+            //     // alert($scope.img_autor);
+            // }
         }).error(function(data, status, headers, config) {
             alert("no ejecuto el ajax");
         });
@@ -343,8 +401,6 @@
             });
             
             $scope.not_ = $tmp;
-            console.log('Noticias footer');
-            console.log($scope.not_);
             
         }).error(function(data, status, headers, config) {
             alert("no ejecuto el ajax");
@@ -352,18 +408,25 @@
         
         // Click de cada noticia
         $scope.noticia=function(id){
-            animar_contenedor();
+            // animar_contenedor();
             window.location = "/#/noticias/"+id;
         }
         
-        $scope.titulo_pagina = 'Noticias -- Level Up';
+        $scope.titulo_pagina = 'Noticias -- Play App';
         jQuery("title").html($scope.titulo_pagina);
+        jQuery('.navegador__contenedor').css('background-color','#555658');
+        // console.clear();
     }]);
 
     // create the controller and inject Angular's $scope
     app.controller('contactoController', ['$scope','$http','datos_noticias', function($scope,$http,datos_noticias) {
         // create a message to display in our view
-        animar_contenedor();
+        var animations = ['page-home','page-contact','page-about'];
+    
+        $scope.pageClass = animations[0];
+        setTimeout(function(){
+            animar_contenedor();
+        },500);
         
         // Ajax para el logo
         $http({
@@ -391,21 +454,25 @@
         // }).success(function(data, status, headers, config) {
             
         //     $scope.form = data;
-        //     console.log("form");
-        //     console.log(data);
         //     //jQuery('.logo__imagen').attr('src',data.img);
             
         // }).error(function(data, status, headers, config) {
         //     alert("no ejecuto el ajax formulario");
         // });
         
-       $scope.titulo_pagina = 'Contacto -- Level Up';
+       $scope.titulo_pagina = 'Contacto -- Play App';
         jQuery("title").html($scope.titulo_pagina);
     }]);
     
     // create the controller and inject Angular's $scope
     app.controller('mainController', ['$scope','$http','datos_noticias','$rootScope', function($scope,$http,datos_noticias,$rootScope) {
-        animar_contenedor();
+        
+        var animations = ['page-home','page-contact','page-about'];
+    
+        $scope.pageClass = animations[0];
+        setTimeout(function(){
+            animar_contenedor();
+        },500);
         
         var top = 0;
         var height = 0;
@@ -418,10 +485,10 @@
             height = -737;
         }else if(window.innerWidth > 480 && window.innerWidth <= 560){
             jQuery('.logo .separador.compartir').hide();
-            jQuery('footer .separador.compartir').hide();
+            ery('footer .separador.compartir').hide();
             height = -612.5;
         }else if(window.innerWidth <= 480){
-            alert();
+            // alert();
             jQuery('.logo .separador.compartir').hide();
             jQuery('footer .separador.compartir').hide();
             height = -612.5;
@@ -441,10 +508,10 @@
                 height = -737;
             }else if(window.innerWidth > 480 && window.innerWidth <= 560){
                 jQuery('.logo .separador.compartir').hide();
-                jQuery('footer .separador.compartir').hide();
+                ery('footer .separador.compartir').hide();
                 height = -612.5;
             }else if(window.innerWidth <= 480){
-                alert();
+                // alert();
                 jQuery('.logo .separador.compartir').hide();
                 jQuery('footer .separador.compartir').hide();
                 height = -612.5;
@@ -492,7 +559,6 @@
             },1000);
         });
         
-        // Click de mas noticias
         jQuery('.more_notices').unbind('click').click(function(){
            var url = "."+jQuery(this).attr('data-url');
            jQuery('body').animate({scrollTop: jQuery(url).offset().top - 5},2000);
@@ -508,8 +574,6 @@
         }).success(function(data, status, headers, config) {
             
             $scope.logo = data;
-            console.log('e');
-            console.log(data.img);
             jQuery('.logo__imagen').attr('src',data.img);
             
         }).error(function(data, status, headers, config) {
@@ -525,9 +589,6 @@
             }
         }).success(function(data, status, headers, config) {
             $scope.menu_slider = data;
-            console.log("esteeeee");
-            console.log($scope.menu_slider);
-            
         }).error(function(data, status, headers, config) {
             alert("no ejecuto el ajax");
         });
@@ -542,8 +603,6 @@
         }).success(function(data, status, headers, config) {
             
             $scope.slider = data;
-            //console.log(data);
-            
         }).error(function(data, status, headers, config) {
             alert("no ejecuto el ajax");
         });
@@ -557,7 +616,6 @@
             }
         }).success(function(data, status, headers, config) {
             $scope.menu = data;
-            console.log(data);
         }).error(function(data, status, headers, config) {
             alert("no ejecuto el ajax");
         });
@@ -571,10 +629,7 @@
                 ref:"home"
             }
         }).success(function(data, status, headers, config) {
-            
             $scope.presentadores = data;
-            //console.log(data);
-            
         }).error(function(data, status, headers, config) {
             alert("no ejecuto el ajax");
         });
@@ -589,19 +644,16 @@
         }).success(function(data, status, headers, config) {
             
             $scope.banner = data;
-            //console.log(data.img);
-            
         }).error(function(data, status, headers, config) {
             alert("no ejecuto el ajax");
         });
 
         // Titulo de la Página
-        $scope.titulo_pagina = 'Home -- Level Up';
+        $scope.titulo_pagina = 'Home -- Play App';
         
         
         // Click de los titulos del menu
         $scope.listCategorias=function(id){
-            //console.log($rootScope);
            /* $http({
                 url: ajaxurl,
                 method: "GET",
@@ -610,9 +662,7 @@
                     id:id
                 }
             }).success(function(res){
-                   //console.log(JSON.parse(res));
                    $rootScope.datos = res;
-                   console.log($rootScope.datos);
                    $scope.datos = $rootScope.datos;
             });
             
@@ -623,7 +673,7 @@
         
         // Click de cada noticia
         $scope.noticia=function(id){
-            animar_contenedor();
+            // animar_contenedor();
             window.location = "/#/noticias/"+id;
         }
         jQuery("title").html($scope.titulo_pagina);
@@ -635,7 +685,7 @@
     // Directiva
     app.factory('datos_noticias',['$rootScope','$http',function ($rootScope,$http) {        
         $rootScope.datos = 'all';
-        animar_contenedor();
+        // animar_contenedor();
         
         
         $http({
@@ -679,7 +729,7 @@
 
 <div ng-app="app">
 
-    <div ng-view>
+    <div class="page {{ pageClass }}"  ng-view>
         
     </div>
 
